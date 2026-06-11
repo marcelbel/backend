@@ -52,6 +52,9 @@ public class EnergyService {
     }
 
     public OptimalChargingWindowResponse findOptimalChargingWindow(int hours) {
+        if (hours < 1 || hours > 6) {
+            throw new IllegalArgumentException("Charging window must be between 1 and 6 hours.");
+        }
         int intervalsInWindow = hours * 2;
         LocalDate tomorrow = LocalDate.now(clock).plusDays(1);
         OffsetDateTime from = startOfDay(tomorrow);
